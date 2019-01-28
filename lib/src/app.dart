@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'navigation/parse_path.dart'
+import 'navigation/parse_path.dart';
 
 class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'News!',
-      onGenerateRoute: routes,
+      onGenerateRoute: _getRoute,
     );
   }
 
