@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'navigation/parse_path.dart'
 
 class App extends StatelessWidget {
   Widget build(BuildContext context) {
@@ -26,24 +27,5 @@ class App extends StatelessWidget {
       maintainState: false,
       builder: (BuildContext context) => builder,
     );
-  }
-
-  Route routes(RouteSettings settings) {
-    if (settings.name == '/') {
-      return MaterialPageRoute(builder: (context) {
-        return NewsList();
-      });
-    } else {
-      return MaterialPageRoute(builder: (context) {
-        final itemId = int.parse(settings.name.replaceFirst('/', ''));
-        final commentsBloc = CommentsProvider.of(context);
-
-        commentsBloc.fetchItemWithComments(itemId);
-
-        return NewsDetail(
-          itemId: itemId,
-        );
-      });
-    }
   }
 }
