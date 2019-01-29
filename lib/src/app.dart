@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'navigation/parse_path.dart';
+import 'navigation/page_provider.dart';
 
 class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'News!',
+      title: 'pop_prototype',
       onGenerateRoute: _getRoute,
     );
   }
@@ -14,8 +15,12 @@ class App extends StatelessWidget {
     var result = ParsePath.validate(path);
 
     switch (result) {
+      case ParseResult.Landing:
+        return _buildRoute(settings, landingPage());
       case ParseResult.Home:
-        return _buildRoute(settings, new Home());
+        return _buildRoute(settings, homePage());
+      case ParseResult.Login:
+        return _buildRoute(settings, loginPage());
       default:
         return null;
     }
