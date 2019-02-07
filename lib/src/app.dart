@@ -21,6 +21,8 @@ class App extends StatelessWidget {
         return _buildRoute(settings, homePage());
       case ParseResult.Login:
         return _buildRoute(settings, loginPage());
+      case ParseResult.UserProfile:
+        return _buildRoute(settings, userProfile());
       default:
         return null;
     }

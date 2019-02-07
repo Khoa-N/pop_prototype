@@ -5,6 +5,7 @@ enum ParseResult {
   Landing,
   Home,
   Login,
+  UserProfile,
 }
 
 class ParsePath {
@@ -23,6 +24,8 @@ class ParsePath {
     if (elements[1] == 'Home' && elements.length == 2) return ParseResult.Home;
     if (elements[1] == 'Login' && elements.length == 2)
       return ParseResult.Login;
+    if (elements[1] == 'UserProfile' && elements.length == 2)
+      return ParseResult.UserProfile;
     return null;
   }
 

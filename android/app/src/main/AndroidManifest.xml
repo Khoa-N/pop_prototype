@@ -16,6 +16,7 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="pop_prototype"
         android:icon="@mipmap/ic_launcher">
+        <meta-data android:name="com.mapbox.token" android:value="pk.eyJ1IjoicG9wb2ZmaWNpYWxhcHAiLCJhIjoiY2pvaTl4b2RxMDcyZjNrbjEyZmZocWZyOSJ9.um6_tmyApiKpy6d50AwTrQ" />
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
