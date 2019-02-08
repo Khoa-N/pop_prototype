@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import '../widgets/map_widget.dart';
 
 class UserScreen extends StatefulWidget {
-  const UserScreen({Key key}) : super(key: key);
+  const UserScreen({Key key})
+      : super(
+            key:
+                key); //this is just envoking the constructor of the inherited class.
   @override
   _UserScreenState createState() => _UserScreenState();
 }
@@ -270,19 +273,19 @@ class _UserScreenState extends State<UserScreen>
                     GestureDetector(
                       child: Icon(Icons.search),
                       onTap: () {
-                        Navigator.pushNamed(context, '/Home');
+                        Navigator.pushNamed(context, '/SearchScreen');
                       },
                     ),
                     GestureDetector(
                       child: Icon(Icons.camera_enhance),
                       onTap: () {
-                        Navigator.pushNamed(context, '/Home');
+                        Navigator.pushNamed(context, '/CameraScreen');
                       },
                     ),
                     GestureDetector(
                       child: Icon(Icons.notification_important),
                       onTap: () {
-                        Navigator.pushNamed(context, '/Home');
+                        Navigator.pushNamed(context, '/NotificationScreen');
                       },
                     ),
                     GestureDetector(
@@ -336,8 +339,6 @@ class _UserScreenState extends State<UserScreen>
   }
 
   Widget socialmediabar() {}
-
-  Widget profiletabs() {}
 
   Widget banner() {
     return this.coverPhotoUrl == ''

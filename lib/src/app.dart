@@ -23,6 +23,12 @@ class App extends StatelessWidget {
         return _buildRoute(settings, loginPage());
       case ParseResult.UserProfile:
         return _buildRoute(settings, userProfile());
+      case ParseResult.NotificationScreen:
+        return _buildRoute(settings, notificationScreen());
+      case ParseResult.SearchScreen:
+        return _buildRoute(settings, searchScreen());
+      case ParseResult.CameraScreen:
+        return _buildRoute(settings, cameraScreen());
       default:
         return null;
     }

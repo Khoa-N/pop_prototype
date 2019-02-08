@@ -6,6 +6,9 @@ enum ParseResult {
   Home,
   Login,
   UserProfile,
+  CameraScreen,
+  SearchScreen,
+  NotificationScreen
 }
 
 class ParsePath {
@@ -26,6 +29,12 @@ class ParsePath {
       return ParseResult.Login;
     if (elements[1] == 'UserProfile' && elements.length == 2)
       return ParseResult.UserProfile;
+    if (elements[1] == 'CameraScreen' && elements.length == 2)
+      return ParseResult.CameraScreen;
+    if (elements[1] == 'SearchScreen' && elements.length == 2)
+      return ParseResult.SearchScreen;
+    if (elements[1] == 'NotificationScreen' && elements.length == 2)
+      return ParseResult.NotificationScreen;
     return null;
   }
 

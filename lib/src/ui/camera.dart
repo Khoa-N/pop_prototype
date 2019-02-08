@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
-class Home extends StatelessWidget {
+class CameraScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home'),
+        title: Text('Camera'),
       ),
       body: Container(
         child: Stack(
           children: <Widget>[
             Container(
-              color: Colors.lightBlue,
+              color: Colors.purple,
               child: Center(
                 child: Text('Hello'),
               ),
