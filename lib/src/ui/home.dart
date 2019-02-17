@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pop_prototype/main.dart';
 
 class Home extends StatelessWidget {
   @override
@@ -6,6 +7,7 @@ class Home extends StatelessWidget {
     var mediaQuery = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
+        leading: Container(),
         title: Text('Home'),
       ),
       body: Container(
@@ -28,31 +30,31 @@ class Home extends StatelessWidget {
                     GestureDetector(
                       child: Icon(Icons.home),
                       onTap: () {
-                        Navigator.pushNamed(context, '/Home');
+                        router.navigateTo(context, '/Home');
                       },
                     ),
                     GestureDetector(
                       child: Icon(Icons.search),
                       onTap: () {
-                        Navigator.pushNamed(context, '/SearchScreen');
+                        router.navigateTo(context, '/SearchScreen');
                       },
                     ),
                     GestureDetector(
                       child: Icon(Icons.camera_enhance),
                       onTap: () {
-                        Navigator.pushNamed(context, '/CameraScreen');
+                        router.navigateTo(context, '/CameraScreen');
                       },
                     ),
                     GestureDetector(
                       child: Icon(Icons.notification_important),
                       onTap: () {
-                        Navigator.pushNamed(context, '/NotificationScreen');
+                        router.navigateTo(context, '/NotificationScreen');
                       },
                     ),
                     GestureDetector(
                       child: Icon(Icons.person),
                       onTap: () {
-                        Navigator.pushNamed(context, '/UserProfile');
+                        router.navigateTo(context, '/UserProfile');
                       },
                     ),
                   ],

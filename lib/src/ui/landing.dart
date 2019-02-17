@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:ui';
 import '../const/text_const.dart';
+import 'package:pop_prototype/main.dart';
 
 class Landing extends StatelessWidget {
   @override
@@ -40,7 +41,7 @@ class Landing extends StatelessWidget {
                 padding: EdgeInsets.only(
                     top: 10.0, bottom: 10.0, left: 30.0, right: 30.0),
                 onPressed: () {
-                  Navigator.popAndPushNamed(context, "/Home");
+                  router.navigateTo(context, "/Home");
                 },
                 child: RichText(
                   text: TextSpan(
