@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pop_prototype/main.dart';
+import '../widgets/navigation_drawer.dart';
 
 class Home extends StatelessWidget {
   @override
@@ -10,6 +11,7 @@ class Home extends StatelessWidget {
         leading: Container(),
         title: Text('Home'),
       ),
+      endDrawer: NavigationDrawer(),
       body: Container(
         child: Stack(
           children: <Widget>[
@@ -19,48 +21,6 @@ class Home extends StatelessWidget {
                 child: Text('Hello'),
               ),
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                height: mediaQuery.height * 0.075,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    GestureDetector(
-                      child: Icon(Icons.home),
-                      onTap: () {
-                        router.navigateTo(context, '/Home');
-                      },
-                    ),
-                    GestureDetector(
-                      child: Icon(Icons.search),
-                      onTap: () {
-                        router.navigateTo(context, '/SearchScreen');
-                      },
-                    ),
-                    GestureDetector(
-                      child: Icon(Icons.camera_enhance),
-                      onTap: () {
-                        router.navigateTo(context, '/CameraScreen');
-                      },
-                    ),
-                    GestureDetector(
-                      child: Icon(Icons.notification_important),
-                      onTap: () {
-                        router.navigateTo(context, '/NotificationScreen');
-                      },
-                    ),
-                    GestureDetector(
-                      child: Icon(Icons.person),
-                      onTap: () {
-                        router.navigateTo(context, '/UserProfile');
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            )
           ],
         ),
       ),

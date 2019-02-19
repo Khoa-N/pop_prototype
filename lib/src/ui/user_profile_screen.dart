@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import '../widgets/map_widget.dart';
 import 'package:pop_prototype/main.dart';
+import '../widgets/navigation_drawer.dart';
+import '../widgets/appbar_widget.dart';
+import '../util/format.dart';
 
 class UserScreen extends StatefulWidget {
   const UserScreen({Key key})
@@ -16,9 +18,12 @@ class _UserScreenState extends State<UserScreen>
   String username = 'user';
   String firstName = 'First';
   String lastName = 'Last';
-  int level = 20;
-  int fans = 123456;
-  int links = 9876;
+  String country = 'United States';
+  String state = 'New York';
+  String city = 'New York';
+  int locations = 20;
+  int favorites = 123456;
+  int fans = 9876;
   bool hasProfilePicture = true;
   bool favorite = false;
   bool following = true;
@@ -86,219 +91,222 @@ class _UserScreenState extends State<UserScreen>
 
   @override
   Widget build(BuildContext context) {
-    var mediaQuery = MediaQuery.of(context).size;
+    var screenSize = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          '@' + this.username,
-        ),
-        leading: Icon(Icons.settings),
-        actions: <Widget>[
-          Container(
-            child: GestureDetector(
-              onTapDown: (_) {
-                setState(() {
-                  favorite = !favorite;
-                });
-              },
-              child: Icon(favorited()),
-            ),
-          ),
-          PopupMenuButton(
-            itemBuilder: (BuildContext context) {
-              return [
-                PopupMenuItem(
-                  value: 'Block',
-                  child: Text('Block'),
-                ),
-                PopupMenuItem(
-                  value: 'Report',
-                  child: Text('Report'),
-                ),
-                PopupMenuItem(
-                  value: 'Mute',
-                  child: Text('Mute'),
-                ),
-                PopupMenuItem(
-                  value: 'Copy profile URL',
-                  child: Text('Copy profile URL'),
-                ),
-                PopupMenuItem(
-                  value: 'Share this Profile',
-                  child: Text('Share this Profile'),
-                ),
-              ];
-            },
-            onSelected: menuSelected,
-          ),
-        ],
-      ),
+      // appBar: AppBar(
+      //   centerTitle: true,
+      //   title: Text(
+      //     '@' + this.username,
+      //   ),
+      //   leading: GestureDetector(
+      //     onTapDown: (_) {},
+      //     child: Icon(Icons.share),
+      //   ),
+      // ),
+      endDrawer: NavigationDrawer(),
       body: Container(
         child: Stack(
           children: <Widget>[
             Column(
               children: <Widget>[
-                /* Padding(
-            padding: EdgeInsets.only(bottom: 20.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(top: 20.0, left: 20.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.all(10.0),
-                        child: Text(
-                          'Level: ${numFormat(this.level)}',
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(10.0),
-                        child: Text(
-                          'Fans: ${numFormat(this.fans)}',
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(10.0),
-                        child: Text(
-                          'Links: ${numFormat(this.links)}',
-                        ), 
+                Builder(
+                  builder: (context) {
+                    return AppbarWidget(Scaffold.of(context));
+                  },
                 ),
-              ],
-            ),
-          ), */
+                SizedBox(
+                  height: 140.0,
+                  child: Stack(
+                    alignment: Alignment.topCenter,
+                    children: <Widget>[
+                      Positioned(
+                        left: 0.1 * screenSize.width,
+                        top: 20.0,
+                        child: profilePicture(),
+                      ),
+                      Positioned(
+                        left: 0.1 * screenSize.width + 170,
+                        top: 20.0,
+                        child: RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: '$firstName $lastName\n\n',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 24.0,
+                                ),
+                              ),
+                              TextSpan(
+                                text: '$country\n\n',
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 16.0,
+                                ),
+                              ),
+                              TextSpan(
+                                text: following ? 'following' : 'follow',
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                  fontStyle: FontStyle.italic,
+                                  fontSize: 16.0,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 20.0),
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Stack(
-                      alignment: Alignment.topCenter,
-                      children: <Widget>[
-                        SizedBox(
-                          width: mediaQuery.width,
-                          height: mediaQuery.height * 0.3,
-                          child: banner(),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(
-                              top: 10.0, bottom: 10.0, left: 30.0, right: 30.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              ClipRRect(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(5.0)),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsets.all(5.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text(firstName + ' ' + lastName,
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                            )),
-                                        verify(),
-                                      ],
-                                    ),
-                                  ),
+                    Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: OutlineButton(
+                        color: Colors.lightBlue[300],
+                        borderSide: BorderSide(color: Colors.black),
+                        highlightElevation: 4.0,
+                        clipBehavior: Clip.none,
+                        padding: EdgeInsets.only(
+                            top: 10.0, bottom: 10.0, left: 15.0, right: 15.0),
+                        onPressed: () {
+                          router.navigateTo(context, "/Home"); // To be Changed
+                        },
+                        child: RichText(
+                          textAlign: TextAlign.center,
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: '${numFormat(this.favorites)}\n\n',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 30.0,
                                 ),
                               ),
-                              Padding(
-                                padding: EdgeInsets.only(top: 5.0),
-                                child: GestureDetector(
-                                  onTapDown: (_) {
-                                    setState(() {
-                                      hasProfilePicture = !hasProfilePicture;
-                                    });
-                                  },
-                                  child: profilePicture(),
+                              TextSpan(
+                                text: 'Favorites\n',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16.0,
                                 ),
                               ),
                             ],
                           ),
                         ),
-                      ],
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: OutlineButton(
+                        color: Colors.lightBlue[300],
+                        borderSide: BorderSide(color: Colors.black),
+                        highlightElevation: 4.0,
+                        clipBehavior: Clip.none,
+                        padding: EdgeInsets.only(
+                            top: 10.0, bottom: 10.0, left: 15.0, right: 15.0),
+                        onPressed: () {
+                          router.navigateTo(context, "/Home"); // To be Changed
+                        },
+                        child: RichText(
+                          textAlign: TextAlign.center,
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: '${numFormat(this.locations)}\n\n',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 30.0,
+                                ),
+                              ),
+                              TextSpan(
+                                text: 'Locations\n',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16.0,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: OutlineButton(
+                        color: Colors.lightBlue[300],
+                        borderSide: BorderSide(color: Colors.black),
+                        highlightElevation: 4.0,
+                        clipBehavior: Clip.none,
+                        padding: EdgeInsets.only(
+                            top: 10.0, bottom: 10.0, left: 15.0, right: 15.0),
+                        onPressed: () {
+                          router.navigateTo(context, "/Home"); // To be Changed
+                        },
+                        child: RichText(
+                          textAlign: TextAlign.center,
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: '${numFormat(this.fans)}\n\n',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 30.0,
+                                ),
+                              ),
+                              TextSpan(
+                                text: 'Fans\n',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16.0,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 ),
-                profileTabBar(),
-                SizedBox(
-                  width: mediaQuery.width,
-                  height: mediaQuery.height * 0.43,
-                  child: Builder(
-                    builder: (context) {
-                      if (view == "info") {
-                        return Text(
-                          'info',
-                          textAlign: TextAlign.center,
-                        );
-                      } else if (view == "reviews") {
-                        return Text(
-                          'reviews',
-                          textAlign: TextAlign.center,
-                        );
-                      } else if (view == "collections") {
-                        return Text(
-                          'collections',
-                          textAlign: TextAlign.center,
-                        );
-                      } else if (view == "map") {
-                        return MapWidget();
-                      }
-                    },
+                Padding(
+                  padding: EdgeInsets.only(top: 20.0),
+                ),
+                Expanded(
+                  child: GridView.count(
+                    crossAxisCount: 2,
+                    children: List.generate(100, (index) {
+                      return GridTile(
+                        child: Padding(
+                          padding: EdgeInsets.all(10.0),
+                          child: ClipRRect(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0)),
+                            child: Container(
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: Colors.yellow,
+                              ),
+                              child: Text(
+                                '$index',
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    }),
                   ),
                 ),
               ],
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                height: mediaQuery.height * 0.075,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    GestureDetector(
-                      child: Icon(Icons.home),
-                      onTap: () {
-                        router.navigateTo(context, '/Home');
-                      },
-                    ),
-                    GestureDetector(
-                      child: Icon(Icons.search),
-                      onTap: () {
-                        router.navigateTo(context, '/SearchScreen');
-                      },
-                    ),
-                    GestureDetector(
-                      child: Icon(Icons.camera_enhance),
-                      onTap: () {
-                        router.navigateTo(context, '/CameraScreen');
-                      },
-                    ),
-                    GestureDetector(
-                      child: Icon(Icons.notification_important),
-                      onTap: () {
-                        router.navigateTo(context, '/NotificationScreen');
-                      },
-                    ),
-                    GestureDetector(
-                      child: Icon(Icons.person),
-                      onTap: () {
-                        router.navigateTo(context, '/UserProfile');
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            )
           ],
         ),
       ),
@@ -382,20 +390,4 @@ class _UserScreenState extends State<UserScreen>
       );
     }
   }
-}
-
-String numFormat(int) {
-  if (int < 1000) {
-    return int.toString();
-  } else if (int < 10000) {
-    return (int ~/ 1000).toString() + ',' + (int % 1000).toString();
-  } else if (int < 100000) {
-    return (int ~/ 1000).toString() +
-        '.' +
-        ((int % 1000) ~/ 100).toString() +
-        'K';
-  } else if (int < 1000000) {
-    return (int ~/ 1000).toString() + 'K';
-  } else
-    return (int ~/ 1000000).toString() + 'M';
 }
