@@ -90,6 +90,11 @@ class _CameraScreenState extends State<CameraScreen> {
                           },
                           child: Container(
                             padding: EdgeInsets.all(4.0),
+                            width: 120.0,
+                            height: 120.0,
+                            decoration: new BoxDecoration(
+                              shape: BoxShape.circle,
+                            ),
                             child: Icon(
                               !_startRecording ? Icons.play_arrow : Icons.stop,
                             ),

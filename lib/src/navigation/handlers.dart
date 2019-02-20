@@ -11,6 +11,7 @@ import '../ui/user_profile_screen.dart';
 import '../ui/video_player_screen.dart';
 import '../ui/saved_screen.dart';
 import '../ui/places_screen.dart';
+import '../ui/feed_screen.dart';
 
 var usersHandler =
     Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
@@ -68,6 +69,11 @@ var placesHandler =
   return PlacesScreen();
 });
 
+var feedHandler =
+    Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+  return FeedScreen();
+});
+
 void defineRoutes(Router router) {
   router.define("/UserProfile", handler: usersHandler);
   router.define("/Home", handler: homeHandler);
@@ -78,5 +84,6 @@ void defineRoutes(Router router) {
   router.define("/SearchScreen", handler: searchHandler);
   router.define("/PlacesScreen", handler: placesHandler);
   router.define("/NotificationScreen", handler: notificationHandler);
+  router.define("/FeedScreen", handler: feedHandler);
   router.define("/VideoPlayer/:path", handler: videoPlayerHandler);
 }

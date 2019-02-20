@@ -12,14 +12,11 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
     return Drawer(
       child: ListView(
         children: <Widget>[
-          DrawerHeader(
-            child: Text("Header"),
-          ),
           ListTile(
             leading: Icon(Icons.play_arrow),
             title: Text('Feed'),
             onTap: () {
-              router.navigateTo(context, '/Home');
+              router.navigateTo(context, '/FeedScreen');
             },
           ),
           ListTile(
