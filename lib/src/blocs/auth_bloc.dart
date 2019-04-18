@@ -1,26 +1,27 @@
 import 'dart:async';
-import 'login_validators.dart';
+import 'auth_validators.dart';
 import 'package:rxdart/rxdart.dart';
 import '../auth/email_auth.dart';
 
-class Bloc extends Object with Validators {
+class AuthBloc extends Object with Validators {
   final _email = BehaviorSubject<String>();
   final _password = BehaviorSubject<String>();
-  final _reenterPassword = BehaviorSubject<String>();
+  final _username = BehaviorSubject<String>();
 
   // Add data to stream
   Stream<String> get email => _email.stream.transform(validateEmail);
   Stream<String> get password => _password.stream.transform(validatePassword);
-  Stream<bool> get submitValid =>
+  Stream<String> get username => _username.stream.transform(validateUsername);
+  Stream<bool> get submitValidLogin =>
       Observable.combineLatest2(email, password, (e, p) => true);
-  Stream<bool> get validPasswords =>
-      Observable.combineLatest2(password, _reenterPassword, (p, r) => p == r);
-  Stream<bool> get validUser => loginStatus().transform(validateUser);
+  Stream<bool> get validSignUp =>
+      Observable.combineLatest3(email, password, username, (e, p, u) => true);
+  //Stream<bool> get validUser => loginStatus().transform(validateUser);
 
   // Change data
   Function(String) get changeEmail => _email.sink.add;
   Function(String) get changePassword => _password.sink.add;
-  Function(String) get changeReenterPassword => _password.sink.add;
+  Function(String) get changeUsername => _username.sink.add;
 
   submit() {
     final validEmail = _email.value;
@@ -35,6 +36,7 @@ class Bloc extends Object with Validators {
   newUser() {
     final validEmail = _email.value;
     final validPassword = _password.value;
+    final validUsername = _username.value;
     signUp(email: validEmail, password: validPassword);
   }
 
@@ -45,6 +47,6 @@ class Bloc extends Object with Validators {
   dispose() {
     _email.close();
     _password.close();
-    _reenterPassword.close();
+    _username.close();
   }
 }

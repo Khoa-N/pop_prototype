@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:async';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -13,12 +14,13 @@ signIn({
 signUp({
   String email,
   String password,
+  String username,
 }) {
   _auth.createUserWithEmailAndPassword(email: email, password: password);
   print('sign up');
 }
 
-Stream<FirebaseUser> loginStatus() => (_auth.onAuthStateChanged);
+Future<FirebaseUser> loginStatus() async => (await _auth.currentUser());
 
 signOut() {
   _auth.signOut();

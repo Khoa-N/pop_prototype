@@ -4,6 +4,7 @@ import 'package:pop_prototype/main.dart';
 import '../ui/login.dart';
 import '../ui/home.dart';
 import '../ui/landing.dart';
+import '../ui/auth_screen.dart';
 import '../ui/camera.dart';
 import '../ui/notification.dart';
 import '../ui/search.dart';
@@ -12,6 +13,7 @@ import '../ui/video_player_screen.dart';
 import '../ui/saved_screen.dart';
 import '../ui/places_screen.dart';
 import '../ui/feed_screen.dart';
+import '../auth/email_auth.dart';
 
 var usersHandler =
     Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
@@ -28,7 +30,15 @@ var homeHandler =
 var landingHandler =
     Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
   //return UserScreen(params["id"][0]);
-  return Landing();
+  return FutureBuilder(
+      future: loginStatus(),
+      builder: (context, snapshot) {
+        if (snapshot != null) {
+          return AuthScreen();
+        } else {
+          return FeedScreen();
+        }
+      });
 });
 
 var loginHandler =

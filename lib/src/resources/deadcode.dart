@@ -115,56 +115,56 @@
 //   ),
 // ),
 
-Widget verify() => this.verified ? Icon(Icons.check_circle) : Container();
+// Widget verify() => this.verified ? Icon(Icons.check_circle) : Container();
 
-IconData favorited() => this.favorite ? Icons.favorite : Icons.favorite_border;
+// IconData favorited() => this.favorite ? Icons.favorite : Icons.favorite_border;
 
-Widget menuSelected(value) {
-  switch (value) {
-    case 'Block':
-      return AlertDialog(
-        title: Text('${this.username} has been blocked.'),
-      );
-    case 'Report':
-      return AlertDialog(
-        title: Text('${this.username} has been reported.'),
-      );
-    case 'Mute':
-      return AlertDialog(
-        title: Text('${this.username} has been muted.'),
-      );
-    case 'Copy profile URL':
-      return AlertDialog(
-        title: Text(
-            '${this.username}\'s profile url is www.pop.com/${this.username}'),
-      );
-    case 'Share this Profile':
-      return AlertDialog(
-        title: Text('${this.username}\'s profile has been shared everywhere.'),
-      );
-    default:
-      return null;
-  }
-}
+// Widget menuSelected(value) {
+//   switch (value) {
+//     case 'Block':
+//       return AlertDialog(
+//         title: Text('${this.username} has been blocked.'),
+//       );
+//     case 'Report':
+//       return AlertDialog(
+//         title: Text('${this.username} has been reported.'),
+//       );
+//     case 'Mute':
+//       return AlertDialog(
+//         title: Text('${this.username} has been muted.'),
+//       );
+//     case 'Copy profile URL':
+//       return AlertDialog(
+//         title: Text(
+//             '${this.username}\'s profile url is www.pop.com/${this.username}'),
+//       );
+//     case 'Share this Profile':
+//       return AlertDialog(
+//         title: Text('${this.username}\'s profile has been shared everywhere.'),
+//       );
+//     default:
+//       return null;
+//   }
+// }
 
-Widget socialmediabar() {}
+// Widget socialmediabar() {}
 
-Widget banner() {
-  return this.coverPhotoUrl == ''
-      ? coverPhotoGradient()
-      : Container(
-          decoration: BoxDecoration(
-              image: DecorationImage(
-            image: ExactAssetImage('assets/cover.jpg'),
-            fit: BoxFit.cover,
-          )),
-        );
-}
+// Widget banner() {
+//   return this.coverPhotoUrl == ''
+//       ? coverPhotoGradient()
+//       : Container(
+//           decoration: BoxDecoration(
+//               image: DecorationImage(
+//             image: ExactAssetImage('assets/cover.jpg'),
+//             fit: BoxFit.cover,
+//           )),
+//         );
+// }
 
-Gradient coverPhotoGradient() {
-  return LinearGradient(
-    colors: [Colors.pink, Colors.yellow, Colors.purple],
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-  );
-}
+// Gradient coverPhotoGradient() {
+//   return LinearGradient(
+//     colors: [Colors.pink, Colors.yellow, Colors.purple],
+//     begin: Alignment.topLeft,
+//     end: Alignment.bottomRight,
+//   );
+// }

@@ -1,29 +1,29 @@
 import 'package:flutter/material.dart';
-import '../blocs/login_bloc.dart';
-import '../blocs/login_provider.dart';
+import '../blocs/auth_bloc.dart';
+import '../blocs/auth_provider.dart';
+import '../auth/email_auth.dart';
 
 class SignupWidget extends StatelessWidget {
   Widget build(BuildContext context) {
-    final bloc = Provider.of(context);
+    final bloc = AuthProvider.of(context);
 
     return Container(
       margin: EdgeInsets.all(20.0),
       child: Column(
         children: <Widget>[
           emailField(bloc),
+          usernameField(bloc),
           passwordField(bloc),
-          reenterPasswordField(bloc),
           Container(
             margin: EdgeInsets.only(top: 25.0),
           ),
           submitButton(bloc),
-          logoutButton(bloc),
         ],
       ),
     );
   }
 
-  Widget emailField(Bloc bloc) {
+  Widget emailField(AuthBloc bloc) {
     return StreamBuilder(
       stream: bloc.email,
       builder: (context, snapshot) {
@@ -31,7 +31,7 @@ class SignupWidget extends StatelessWidget {
           onChanged: bloc.changeEmail,
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
-            hintText: 'you@example.com',
+            //hintText: 'you@example.com',
             labelText: 'Email Address',
             errorText: snapshot.error,
           ),
@@ -40,7 +40,7 @@ class SignupWidget extends StatelessWidget {
     );
   }
 
-  Widget passwordField(Bloc bloc) {
+  Widget passwordField(AuthBloc bloc) {
     return StreamBuilder(
       stream: bloc.password,
       builder: (context, snapshot) {
@@ -48,7 +48,7 @@ class SignupWidget extends StatelessWidget {
           onChanged: bloc.changePassword,
           obscureText: true,
           decoration: InputDecoration(
-              hintText: 'Password',
+              //hintText: 'Password',
               labelText: 'Password',
               errorText: snapshot.error),
         );
@@ -56,23 +56,22 @@ class SignupWidget extends StatelessWidget {
     );
   }
 
-  Widget reenterPasswordField(Bloc bloc) {
+  Widget usernameField(AuthBloc bloc) {
     return StreamBuilder(
-      stream: bloc.validPasswords,
+      stream: bloc.validUsernames,
       builder: (context, snapshot) {
         return TextField(
-          onChanged: bloc.changeReenterPassword,
-          obscureText: true,
+          onChanged: bloc.changeUsername,
           decoration: InputDecoration(
-            hintText: 'Re-Enter Password',
-            labelText: 'Re-Enter Password',
+            //hintText: 'Re-Enter Password',
+            labelText: 'Enter A Username',
           ),
         );
       },
     );
   }
 
-  Widget submitButton(Bloc bloc) {
+  Widget submitButton(AuthBloc bloc) {
     return StreamBuilder(
       stream: bloc.submitValid,
       builder: (context, snapshot) {
@@ -85,9 +84,9 @@ class SignupWidget extends StatelessWidget {
     );
   }
 
-  Widget logoutButton(Bloc bloc) {
-    return StreamBuilder(
-      stream: bloc.validUser,
+  Widget logoutButton(AuthBloc bloc) {
+    return FutureBuilder(
+      future: loginStatus(),
       builder: (context, snapshot) {
         return RaisedButton(
           child: Text('Sign Out'),

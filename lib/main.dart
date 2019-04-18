@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'src/navigation/handlers.dart';
 import 'package:fluro/fluro.dart';
+import 'src/blocs/auth_provider.dart';
 
 final router = Router();
 List<CameraDescription> cameras;
@@ -19,9 +20,11 @@ Future<Null> main() async {
 class App extends StatelessWidget {
   Widget build(BuildContext context) {
     defineRoutes(router);
-    return MaterialApp(
-      title: 'pop_prototype',
-      onGenerateRoute: router.generator,
+    return AuthProvider(
+      child: MaterialApp(
+        title: 'pop_prototype',
+        onGenerateRoute: router.generator,
+      ),
     );
   }
 }
